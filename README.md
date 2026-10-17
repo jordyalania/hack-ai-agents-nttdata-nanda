@@ -44,3 +44,5 @@ El estado local de los agentes, las claves y los archivos de configuración priv
 ## Propuesta comercial en exploración
 
 [Análisis de oportunidad BCP](ANALISIS-OPORTUNIDAD-COMERCIAL-BCP.md): evidencia pública, nicho propuesto, productos candidatos y datos necesarios para un agente de venta cruzada.
+
+[Brief del copiloto para mypes](BRIEF-COPILOTO-COMERCIAL-MYPES.md): visión, perfilado detallado, fuentes de datos, agentes, experiencia del asesor y alcance del MVP.
