@@ -1,0 +1,22 @@
+schema: spec-driven
+
+context: |
+  Language: Spanish. Write artifacts in Spanish; preserve structural headings and SHALL/MUST keywords in English.
+  Project: Mype360, a sales-advisor copilot for Peruvian micro and small businesses; BCP is a reference, not a connected partner.
+  Product source: BRIEF-COPILOTO-COMERCIAL-MYPES.md. Business rationale: ANALISIS-OPORTUNIDAD-COMERCIAL-BCP.md.
+  Separate people, businesses, accounts, contracts, observations, declared preferences and unconfirmed hypotheses.
+  MVP uses reproducible synthetic commercial data; existing IBM/SAML-D datasets are AML research, not BCP customer data or sales labels.
+  Product specialists propose; a coordinator compares suitability and may request information or recommend no offer. Advisor reviews outputs.
+  Financial calculations and eligibility use explicit versioned rules; decision preferences never determine credit access, limits or prices.
+  OpenSpec manages development specifications; the product agent runtime is a separate design decision. nandatown/ is an upstream submodule.
+  No banking credentials or production integrations exist. No automatic outreach or real credit approvals in the MVP.
+
+rules:
+  proposal:
+    - Define concrete demo outcomes, non-goals and assumptions; do not claim measured commercial uplift.
+  specs:
+    - Every requirement has verifiable WHEN/THEN scenarios, including missing data and no-offer outcomes where relevant.
+  design:
+    - Distinguish implemented assets from proposed components; keep new product code outside nandatown/.
+  tasks:
+    - Order tasks by dependencies and tie verification to requirements; leave implementation tasks unchecked until verified.

@@ -46,3 +46,9 @@ El estado local de los agentes, las claves y los archivos de configuración priv
 [Análisis de oportunidad BCP](ANALISIS-OPORTUNIDAD-COMERCIAL-BCP.md): evidencia pública, nicho propuesto, productos candidatos y datos necesarios para un agente de venta cruzada.
 
 [Brief del copiloto para mypes](BRIEF-COPILOTO-COMERCIAL-MYPES.md): visión, perfilado detallado, fuentes de datos, agentes, experiencia del asesor y alcance del MVP.
+
+## Desarrollo con OpenSpec
+
+[Integración y siguientes pasos](OPENSPEC-NEXT-STEPS.md). Instalación local: `npm ci`. Verificación del plan: `npm run spec:validate`. Primer cambio: `mype-copilot-mvp`.
+
+[Concepto visual de la ficha CRM](visualizaciones/panel-crm-mypes-v1.png): conversación, perfil y propuestas de agentes comerciales en una pantalla.

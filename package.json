@@ -1,0 +1,17 @@
+{
+  "name": "mypes-copilot-workspace",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Workspace de especificaciones y prototipo del copiloto comercial para mypes",
+  "engines": {
+    "node": ">=20.19.0"
+  },
+  "scripts": {
+    "spec": "OPENSPEC_TELEMETRY=0 OPENSPEC_NO_UPDATE_CHECK=1 openspec",
+    "spec:validate": "OPENSPEC_TELEMETRY=0 OPENSPEC_NO_UPDATE_CHECK=1 openspec validate --all --strict --no-interactive",
+    "spec:status": "OPENSPEC_TELEMETRY=0 OPENSPEC_NO_UPDATE_CHECK=1 openspec list"
+  },
+  "devDependencies": {
+    "@fission-ai/openspec": "1.14.3"
+  }
+}
