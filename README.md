@@ -56,3 +56,9 @@ El estado local de los agentes, las claves y los archivos de configuración priv
 ## Backend y Supabase
 
 [Configuración, autenticación y MCP](services/backend/README.md). Node.js 22+. Arranque: `npm run backend:dev`. Pruebas: `npm run backend:test`. Comprobación remota de solo lectura: `npm run supabase:check`.
+
+## Base web de Lovable
+
+[base-web/](base-web/README.md) contiene el frontend de [mype-connect](https://github.com/jordyalania/mype-connect), incorporado como submódulo. Sus cambios se guardan en ese repositorio y se sincronizan con Lovable.
+
+Para descargarlo junto con este proyecto: `git submodule update --init --recursive`.

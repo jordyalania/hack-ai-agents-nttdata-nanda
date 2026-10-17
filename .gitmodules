@@ -1,3 +1,6 @@
 [submodule "nandatown"]
 	path = nandatown
 	url = https://github.com/projnanda/nandatown.git
+[submodule "base-web"]
+	path = base-web
+	url = https://github.com/jordyalania/mype-connect.git
