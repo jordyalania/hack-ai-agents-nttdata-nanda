@@ -2,7 +2,8 @@ schema: spec-driven
 
 context: |
   Language: Spanish. Write artifacts in Spanish; preserve structural headings and SHALL/MUST keywords in English.
-  Project: Mype360, a sales-advisor copilot for Peruvian micro and small businesses; BCP is a reference, not a connected partner.
+  Project: CrossPilot, a sales-advisor copilot for Peruvian micro and small businesses; BCP is a reference, not a connected partner.
+  Current UI source: Prototipo interactivo Crosspilot.zip, supplied by the user; five-product simulated catalogue with a dedicated CrossPilot workspace. Previous mype_* schemas and domain are preserved for compatibility.
   Product source: BRIEF-COPILOTO-COMERCIAL-MYPES.md. Business rationale: ANALISIS-OPORTUNIDAD-COMERCIAL-BCP.md.
   Separate people, businesses, accounts, contracts, observations, declared preferences and unconfirmed hypotheses.
   MVP uses reproducible synthetic commercial data; existing IBM/SAML-D datasets are AML research, not BCP customer data or sales labels.

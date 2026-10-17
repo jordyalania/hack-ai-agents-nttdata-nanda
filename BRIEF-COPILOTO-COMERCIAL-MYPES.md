@@ -1,6 +1,6 @@
 # Brief: copiloto de crecimiento y venta consultiva para mypes
 
-Fecha: 17 de octubre de 2026. Mercado: Perú. Banco de referencia: BCP. Nombre de trabajo: Mype360. Estado: propuesta conceptual para hackatón; no describe una integración existente con el banco.
+Fecha: 17 de octubre de 2026. Mercado: Perú. Banco de referencia: BCP. Nombre de trabajo: CrossPilot. Estado: propuesta conceptual para hackatón; no describe una integración existente con el banco.
 
 ## 1. Visión
 

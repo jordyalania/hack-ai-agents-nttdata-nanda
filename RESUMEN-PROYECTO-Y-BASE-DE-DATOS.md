@@ -1,168 +1,69 @@
-# Mype360 — resumen del proyecto y la base de datos
+# CrossPilot — resumen actual del producto y la BD
 
-Estado revisado el **17 de octubre de 2026**. Este documento reúne la ubicación de la base, arquitectura, funcionalidades, datos y pendientes del MVP.
+Actualización: 17 de octubre de 2026. El producto se llama **CrossPilot** y la web principal está basada en el ZIP `Prototipo interactivo Crosspilot.zip` aportado por el usuario.
 
-## 1. Dónde está la BD
+## Dónde está la base
 
-La base remota es **PostgreSQL en Supabase**, dentro de un único proyecto:
+[Proyecto Supabase](https://supabase.com/dashboard/project/hbpwibthtoernsejaulg) · [Ver tablas](https://supabase.com/dashboard/project/hbpwibthtoernsejaulg/editor)
 
-| Dato | Valor |
+- Proyecto: `hbpwibthtoernsejaulg`.
+- API: `https://hbpwibthtoernsejaulg.supabase.co`.
+- Postgres: `db.hbpwibthtoernsejaulg.supabase.co:5432`, base y usuario `postgres`.
+- La conexión directa requiere contraseña privada. La web utiliza publishable key y sesión de usuario; no expone credenciales administrativas.
+
+**Tabla activa de la nueva web:** `public.crosspilot_workspaces`. Reúne el estado completo del prototipo en un JSON por asesor, con `owner_id`, `state`, `revision` y `updated_at`. No hay una BD por agente.
+
+Las once tablas `mype_*` de la fase anterior permanecen en el mismo proyecto por compatibilidad. No se borraron ni renombraron y la nueva ruta no guarda en ellas. Las migraciones y sus pruebas están en `base-web/supabase/`.
+
+## Qué guarda CrossPilot
+
+| Dato | Contenido |
 | --- | --- |
-| Proyecto | `hbpwibthtoernsejaulg` |
-| Panel | [Abrir proyecto](https://supabase.com/dashboard/project/hbpwibthtoernsejaulg) |
-| Tablas | [Abrir Table Editor](https://supabase.com/dashboard/project/hbpwibthtoernsejaulg/editor) |
-| SQL | [Abrir SQL Editor](https://supabase.com/dashboard/project/hbpwibthtoernsejaulg/sql/new) |
-| URL de API | `https://hbpwibthtoernsejaulg.supabase.co` |
-| Host de Postgres | `db.hbpwibthtoernsejaulg.supabase.co` |
-| Puerto / base / usuario | `5432` / `postgres` / `postgres` |
-| Esquema del CRM | `public`, tablas con prefijo `mype_` |
+| Clientes | Diez MYPES sintéticas del prototipo, de Rosa Huamán a Raúl Chávez |
+| Perfil | Ingreso neto, deuda, mora, productos y señales comerciales |
+| Negociación | Mensajes predefinidos de Orquestador, Venta cruzada y Riesgo |
+| Aprobación | Productos incluidos, montos editados y decisión del ejecutivo |
+| Ficha | Resumen, oferta, puntos de conversación, objeciones y próximo paso |
+| Postvisita | Nota, resultado confirmado, productos aceptados simulados y seguimiento |
+| Estado | Estadísticas, selección, fase y revisión de guardado |
 
-No hay una base independiente para cada agente: todos los módulos del CRM comparten este proyecto. Las migraciones SQL del repositorio describen su estructura; los registros remotos viven en Supabase.
+Los gráficos de 24 meses y porcentajes de afinidad son ilustrativos. No representan una consulta a SBS ni un modelo calibrado. IBM AML y SAML-D no alimentan esta web.
 
-La conexión directa necesita la contraseña de Postgres. La web usa la API pública y una sesión de Supabase Auth; no necesita recibir esa contraseña ni una clave administrativa. Este resumen no contiene contraseñas, claves privadas ni tokens.
+## Cómo guardar
 
-## 2. Estado real de los datos
+La demo inicial se guarda en el navegador con la clave `crosspilot-workspace-v1`. **No se sube automáticamente a Supabase.**
 
-**La comprobación remota de esta revisión encontró cero filas en las once tablas del CRM.** El esquema está creado y probado, pero no hay todavía una cartera guardada por un asesor.
+En la web: **Conectar Supabase → iniciar sesión o crear acceso → Cargar mi cartera → Guardar cambios**. Cargar una cartera remota no importa las modificaciones locales. Exportar descarga `crosspilot-cartera.json`; todavía no existe importador.
 
-Los diez clientes que aparecen al abrir la web pertenecen a la **demo local**. Sus cambios se conservan en `localStorage`, bajo la clave `mype360-workspace-v1`. No se suben automáticamente a Supabase. Las pruebas remotas usaron datos transaccionales y terminaron con `ROLLBACK`, por eso no dejaron carteras ni usuarios de prueba.
+La RPC `crosspilot_save_workspace(document, expected_revision)` guarda con control de revisión. RLS impide ver o modificar carteras de otro asesor y bloquea acceso anónimo. Las pruebas remotas usan usuarios ficticios transaccionales, sin emails y con rollback; no crean carteras permanentes.
 
-| Modo de la pantalla | Dónde están los datos | Cómo se guardan |
-| --- | --- | --- |
-| Demo local | Navegador de ese dispositivo | Automáticamente en almacenamiento local |
-| Supabase | BD PostgreSQL de este proyecto | Con sesión y botón **Guardar cambios** |
+## Qué hace la web
 
-### Crear la primera cartera remota
+1. Agenda de cinco clientes priorizados de una cartera de diez; selector de todos los clientes.
+2. Perfil lateral con gráficos, trayectoria, productos e intereses.
+3. Negociación entre agentes simulados y revisión de riesgo.
+4. Edición de montos, inclusión de productos y aprobación o rechazo humano.
+5. Ficha de visita y postvisita con resultado explícito.
+6. Guardado local, exportación y cartera privada en Supabase.
 
-1. Abrir la web y pulsar **Conectar Supabase**.
-2. Iniciar sesión o usar **Crear acceso demo**; confirmar el correo si el proyecto lo exige.
-3. Pulsar **Cargar mi cartera**. Si el usuario es nuevo, se prepara su cartera sintética.
-4. Pulsar **Guardar cambios**. Se guardan el documento de cartera y las tablas relacionadas en una única transacción.
-5. Revisar el Table Editor o pulsar **Recargar cartera** en la web.
+Catálogo actual: capital de trabajo, activo fijo, seguro de negocio, ahorro y cobro QR. En el ejemplo de Rosa, Riesgo ajusta activo fijo de S/20,000 a S/12,000. Las reglas, puntajes y márgenes son supuestos de demostración, no decisiones reales de crédito ni rentabilidad medida.
 
-**Cargar mi cartera no importa las modificaciones de la demo local.** Para conservarlas antes de cambiar de modo, usar **Exportar cartera**. Esta versión permite exportar, pero todavía no incorpora un importador de ese JSON ni una migración automática de local a remoto.
+El resultado de una nota no se presupone como aceptado: el asesor debe confirmarlo. Solo una aceptación explícita incrementa los productos **sintéticos** de la sesión. No se contratan ni activan servicios reales.
 
-## 3. Qué contiene esa única BD
+## Código y ejecución
 
-| Tabla | Qué guarda | Filas en esta revisión |
-| --- | --- | ---: |
-| `mype_workspaces` | Cartera completa, revisión y fecha de guardado | 0 |
-| `mype_people` | Personas titulares de negocios | 0 |
-| `mype_businesses` | Negocios y perfiles comerciales versionados | 0 |
-| `mype_accounts` | Cuentas por negocio y moneda | 0 |
-| `mype_movements` | Abonos y compras agregados por mes | 0 |
-| `mype_contracts` | Productos existentes y vigencia | 0 |
-| `mype_invoices` | Facturas, importes, vencimientos y elegibilidad simulada | 0 |
-| `mype_messages` | Mensajes registrados como contexto | 0 |
-| `mype_events` | Correcciones, perfil anterior, autor y fuente | 0 |
-| `mype_runs` | Propuestas, descartes, evidencia y trazas de análisis | 0 |
-| `mype_cases` | Notas, feedback, aprobación, borrador y postvisita | 0 |
-
-Supabase Auth gestiona los usuarios en `auth.users`, fuera de estas once tablas. Las claves incluyen `owner_id`: las políticas RLS restringen cada cartera a su asesor.
-
-```mermaid
-flowchart LR
-  U[Asesor autenticado] --> W[Cartera]
-  W --> P[Personas]
-  P --> B[Negocios]
-  B --> C[Cuentas]
-  C --> M[Movimientos]
-  B --> CO[Contratos]
-  B --> F[Facturas]
-  B --> MS[Mensajes]
-  B --> E[Eventos y versiones]
-  B --> R[Análisis de especialistas]
-  B --> CS[Seguimiento y visita]
-```
-
-Una persona puede ser titular de varios negocios. Sus cuentas, conversaciones y recomendaciones se mantienen separadas por negocio.
-
-El documento principal del MVP está en `mype_workspaces.body`. La función `mype_save_workspace(document, expected_revision)` actualiza ese documento y sus proyecciones relacionales en una única transacción. La web utiliza esa función para guardar. Editar las tablas relacionadas manualmente no actualiza automáticamente el documento principal.
-
-## 4. Datos sintéticos disponibles
-
-El generador prepara, por cartera nueva:
-
-- Nueve personas y diez negocios; un titular participa en dos negocios.
-- Diez cuentas en PEN.
-- 216 movimientos agregados: abonos y compras mensuales de nueve negocios durante doce meses.
-- Un contrato vigente y dos facturas elegibles simuladas.
-- Objetivos, preferencias de comunicación, necesidades y mensajes iniciales.
-- Casos de capital de trabajo, cobros, factoring, producto ya existente, datos insuficientes y no ofrecer.
-
-No son datos de clientes reales de BCP. Los datasets IBM AML y SAML-D explorados inicialmente no alimentan el perfil comercial de este MVP ni se cargaron en estas tablas. Tampoco se subieron los documentos de la hackatón a la BD: siguen siendo archivos del proyecto.
-
-La generación es reproducible con semilla `42`, fecha `2026-10-17` y versión `mype-synthetic-1`. Desde `base-web`:
-
-```sh
-npm run demo:generate -- 42 2026-10-17 /tmp/mype360-demo.json
-```
-
-## 5. Qué hace la web
-
-El producto es un **copiloto para el asesor comercial de MYPES**, usando banca peruana y BCP como referencia de negocio.
-
-- Cartera con búsqueda y selección de clientes.
-- Perfil con indicadores económicos, objetivos, preferencias, cobertura y evidencia.
-- Conversación registrada y notas privadas por negocio.
-- Propuestas de productos con condiciones, razones y alternativas descartadas.
-- Revisión de riesgo y conveniencia para el cliente.
-- Aprobación o rechazo comercial por parte del asesor.
-- Ficha de visita descargable, borrador editable y notas postvisita.
-- Historial de correcciones y versiones; reevaluación después de una confirmación.
-
-Las preferencias ayudan a personalizar la comunicación. No se infieren diagnósticos psicológicos ni se usan preferencias para modificar capacidad de crédito, límites o precios.
-
-## 6. Cómo funcionan los agentes ahora
-
-| Rol | Función implementada |
-| --- | --- |
-| Orquestador | Consolida el perfil y dirige el análisis |
-| Cross-sell | Ejecuta especialistas de cobros, capital de trabajo y factoring |
-| Riesgo | Aplica condiciones financieras simuladas y acepta, ajusta o descarta |
-| Revisión de interés del cliente | Contrasta necesidad y pertinencia; puede solicitar información o no ofrecer |
-| Visita / Postvisita | Prepara ficha, borrador y seguimiento tras la revisión del asesor |
-
-**La web funciona con reglas deterministas, no con un LLM conectado.** Hay un adaptador opcional de Claude en el backend del repositorio principal. Para activarlo faltan clave y modelo del proveedor, además de conectar ese servicio opcional a la interfaz. Las pruebas del adaptador usan respuestas controladas, no llamadas reales.
-
-Ejemplo: Bodega Doña Rosa solicita S/20,000; las reglas de riesgo limitan la propuesta a S/12,000. Esto es una simulación comercial, no aprobación de crédito ni una política real de BCP.
-
-## 7. Flujo de actualización
-
-```mermaid
-flowchart LR
-  M[Registrar mensaje] --> X[Proponer posible actualización]
-  X --> H[Asesor revisa y confirma]
-  H --> V[Nueva versión del perfil]
-  V --> I[Análisis anterior desactualizado]
-  I --> A[Reevaluar especialistas]
-  A --> D[Decisión humana]
-  D --> G[Guardar cambios en Supabase]
-```
-
-Un mensaje por sí solo no confirma una necesidad. Las correcciones conservan el perfil anterior y la fuente. Los resultados atrasados no reemplazan una versión más reciente. El guardado remoto rechaza una revisión antigua cuando otra sesión ya guardó cambios.
-
-## 8. Dónde está el código
-
-| Elemento | Ubicación |
+| Elemento | Dónde está |
 | --- | --- |
 | Web | [`base-web/`](base-web/README.md) — TanStack Start, React y TypeScript |
-| Repo de la web | [mype-connect](https://github.com/jordyalania/mype-connect), privado |
-| Repo principal | [hack-ai-agents-nttdata-nanda](https://github.com/jordyalania/hack-ai-agents-nttdata-nanda), público |
-| Reglas y generador | `base-web/src/domain/copilot.ts` |
-| Lectura/guardado de cartera | `base-web/src/lib/workspace-repository.ts` |
-| Tipos de la BD real | `base-web/src/lib/database.types.ts` |
-| Migración aplicada | `base-web/supabase/migrations/20261017191922_mype_commercial_workspace.sql` |
-| Backend opcional | [`services/backend/`](services/backend/README.md) |
-| Plan OpenSpec | `openspec/changes/mype-copilot-mvp/` — 32 tareas marcadas completas |
-| Diccionario y relaciones | [Datos y arquitectura](base-web/docs/DATOS-Y-ARQUITECTURA.md) |
-| Pruebas y límites | [Verificación](base-web/docs/VERIFICACION.md) |
+| Fuente del ZIP | `referencias/crosspilot-design/` y copia en `base-web/design-source/` |
+| Conversor reproducible | `base-web/scripts/convert-crosspilot.py` |
+| React del prototipo | `base-web/src/components/crosspilot/CrossPilotPrototype.jsx` |
+| Auth y entorno | `base-web/src/components/crosspilot/CrossPilotApp.tsx` |
+| Estado y persistencia | `crosspilot-session.ts`, `use-crosspilot.ts`, `crosspilot-repository.ts` |
+| Esquema actual | `20261017201853_crosspilot_prototype_workspace.sql` |
+| Guía de integración | [CrossPilot prototipo](base-web/docs/CROSSPILOT-PROTOTIPO.md) |
 
-La migración se aplicó mediante la CLI oficial de Supabase. Se verificaron las relaciones, el guardado completo, las revisiones, el bloqueo de acceso anónimo y el aislamiento entre asesores.
-
-## 9. Arranque y verificaciones
-
-Desde la carpeta principal, con acceso al repositorio privado de la web:
+[Repositorio web](https://github.com/jordyalania/mype-connect) — privado y sincronizado con Lovable. [Repositorio principal](https://github.com/jordyalania/hack-ai-agents-nttdata-nanda) — público. Se conserva la URL `mype-connect` para no romper la integración; la marca del producto ya es CrossPilot.
 
 ```sh
 git submodule update --init base-web
@@ -171,17 +72,10 @@ npm --prefix base-web ci
 npm run web:dev -- --host 127.0.0.1 --port 5173
 ```
 
-Vista local: [http://127.0.0.1:5173](http://127.0.0.1:5173), mientras el servidor siga ejecutándose.
+[Vista local](http://127.0.0.1:5173), mientras el servidor esté ejecutándose. Los pushes se sincronizan con el editor Lovable; no confirman por sí solos publicación pública.
 
-Verificaciones realizadas: 18 tests de frontend/dominio, 10 de backend, tipos, lint del MVP, compilación, flujo de navegador de escritorio/móvil y pruebas transaccionales en Supabase. Los checks del frontend y de OpenSpec pasaron en GitHub. No se ha confirmado una publicación pública de la web.
+## Qué falta para producción
 
-## 10. Qué queda para la siguiente fase
+Proveedor de IA real, fuentes comerciales autorizadas, políticas y condiciones bancarias validadas, importación de datos anteriores si se desea, y publicación del entorno. El nuevo prototipo no invoca el adaptador narrativo opcional del backend anterior.
 
-1. Crear el acceso de cada asesor y guardar su primera cartera remota.
-2. Si se requiere conservar el trabajo de la demo local, implementar importación validada del JSON exportado.
-3. Configurar y probar un proveedor LLM real y conectar su transporte autenticado a la web.
-4. Sustituir escenarios sintéticos por fuentes comerciales autorizadas y definir políticas y condiciones reales.
-5. Incorporar costos internos para comparar contribución bancaria; hoy no se calcula rentabilidad real.
-6. Definir publicación de la web y entorno del backend opcional.
-
-Voz, WhatsApp, envío automático de ofertas, contratación, integración bancaria y scoring crediticio real no están implementados. El MVP prepara decisiones y conversaciones para revisión humana.
+No están conectados voz, WhatsApp, envío de ofertas, contratación, desembolsos, datos privados de BCP ni scoring crediticio real. Ambos estados del “Modo respaldo” usan respuestas predefinidas.

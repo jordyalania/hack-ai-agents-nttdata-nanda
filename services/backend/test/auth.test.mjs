@@ -41,7 +41,7 @@ test('rechaza un token firmado por una clave no confiable', async () => {
   assert.equal((await handle(request(token({}, other.privateKey)))).status, 401);
 });
 test('salud no revela configuración y las rutas desconocidas no se aceptan', async () => {
-  assert.deepEqual(await (await handle(new Request('http://localhost/health'))).json(), { status: 'ok', service: 'mype360-backend' });
+  assert.deepEqual(await (await handle(new Request('http://localhost/health'))).json(), { status: 'ok', service: 'crosspilot-backend' });
   assert.equal((await handle(new Request('http://localhost/unknown'))).status, 404);
   assert.equal((await handle(new Request('http://localhost/api/session', { method: 'POST' }))).status, 405);
 });

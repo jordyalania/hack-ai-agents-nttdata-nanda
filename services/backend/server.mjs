@@ -30,4 +30,4 @@ const server = createServer(async (incoming, outgoing) => {
     outgoing.end('{"error":"INTERNAL_ERROR"}');
   }
 });
-server.listen(port, '127.0.0.1', () => console.log(`Mype360 backend: http://127.0.0.1:${port}`));
+server.listen(port, '127.0.0.1', () => console.log(`CrossPilot backend: http://127.0.0.1:${port}`));

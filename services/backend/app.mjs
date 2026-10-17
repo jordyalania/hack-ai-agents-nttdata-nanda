@@ -14,7 +14,7 @@ export function createApp(config) {
     if (!['GET', 'HEAD'].includes(request.method) && !(match && request.method === 'PATCH' && match[2] === 'profile')) {
       return new Response(null, { status: 405, headers: { Allow: 'GET, HEAD' } });
     }
-    if (path === '/health') return json({ status: 'ok', service: 'mype360-backend' });
+    if (path === '/health') return json({ status: 'ok', service: 'crosspilot-backend' });
     if (path !== '/api/session' && !match) return json({ error: 'NOT_FOUND' }, 404);
     try {
       const { data: auth, error } = await verifyAuth(request, {

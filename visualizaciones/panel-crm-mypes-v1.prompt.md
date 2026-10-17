@@ -1,13 +1,13 @@
-# Prompt de panel CRM Mype360 v1
+# Prompt de panel CRM CrossPilot v1
 
 Método: herramienta integrada de generación de imágenes.
 Referencia Buzz: no se recibió una imagen adjunta; esta versión interpreta la descripción del usuario.
 
-+Use case: ui-mockup. Create ONE polished high-fidelity desktop CRM product interface screenshot for a Peruvian bank sales advisor, named "Mype360". This is a visual concept, not actual software. No reference image is available; do not imply that you saw or copied a Buzz reference. Aim for the cohesive, compact elegance of a modern conversational CRM, not a generic analytics dashboard.
++Use case: ui-mockup. Create ONE polished high-fidelity desktop CRM product interface screenshot for a Peruvian bank sales advisor, named "CrossPilot". This is a visual concept, not actual software. No reference image is available; do not imply that you saw or copied a Buzz reference. Aim for the cohesive, compact elegance of a modern conversational CRM, not a generic analytics dashboard.
 Format: wide landscape, approximately 1920x1200 or similar high resolution, straight-on flat app screenshot filling the frame. No laptop/device frame, no photographic background, no isometric perspective.
 Design: professional light theme, white surfaces, warm pale-gray background, navy typography and slim dark-navy navigation rail, restrained vivid blue active states, small orange brand accents suitable for Peruvian banking. Clean sans-serif typography, generous but practical spacing, subtle dividers, tasteful small outline icons. Crisp highly readable Spanish interface text, accurate currency notation, purposeful content. No decorative charts, no fake random data wall, no huge KPI tiles, no giant logos.
 Layout:
-A narrow left navigation rail with Mype360 monogram and icons for Inicio, Cartera, Conversaciones, Oportunidades.
+A narrow left navigation rail with CrossPilot monogram and icons for Inicio, Cartera, Conversaciones, Oportunidades.
 Main header across the top: breadcrumb "Cartera / Ficha del cliente"; top-right "Asesor: Diego Ramírez" and small "Demo · datos sintéticos".
 Below header, 3 primary vertical columns, all visible simultaneously:
 LEFT column ~25%: complete compact customer profile.

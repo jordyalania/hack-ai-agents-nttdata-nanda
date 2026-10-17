@@ -1,3 +1,5 @@
+> Nota de actualización: la web actual sigue el ZIP CrossPilot. Consulta `base-web/README.md` y `RESUMEN-PROYECTO-Y-BASE-DE-DATOS.md`; los pasos siguientes corresponden a la planificación de la primera fase.
+
 # OpenSpec: integración y siguientes pasos
 
 OpenSpec 1.14.3 está instalado localmente como dependencia de desarrollo, fijado en `package.json` y `package-lock.json`. El repositorio requiere ahora Node.js 22+ por Supabase Server; OpenSpec por sí solo admite 20.19.0+. La configuración del proyecto está en `openspec/config.yaml`; las seis skills para Codex están en `.agents/skills/`.
@@ -41,7 +43,7 @@ En Codex, el siguiente flujo es `$openspec-apply-change mype-copilot-mvp`, o ped
 
 ## Referencia visual
 
-[Panel CRM Mype360 v1](visualizaciones/panel-crm-mypes-v1.png).
+[Panel CRM CrossPilot v1](visualizaciones/panel-crm-mypes-v1.png).
 
 Imagen conceptual generada con la herramienta integrada de imágenes. [Prompt completo](visualizaciones/panel-crm-mypes-v1.prompt.md). No se recibió la imagen de referencia Buzz mencionada; esta primera versión interpreta la descripción del usuario.
 

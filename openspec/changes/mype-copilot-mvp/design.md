@@ -2,7 +2,7 @@
 
 ## Context
 
-El repositorio contiene brief, análisis comercial, scripts de datos AML y un submódulo NandaTown. La base de Lovable vive en el submódulo `base-web` (TanStack Start/React). Se implementan la ficha Mype360, endpoints comerciales y persistencia Supabase. El proveedor de modelo sigue opcional y sin credenciales configuradas. Se incorpora la base de autenticación Supabase en Node.js. Ver `proposal.md` para motivación y alcance. La referencia visual es `visualizaciones/panel-crm-mypes-v1.png`: una ficha con perfil, conversación y propuestas de producto; es un concepto gráfico, no código ejecutable.
+El repositorio contiene brief, análisis comercial, scripts de datos AML y un submódulo NandaTown. La base de Lovable vive en el submódulo `base-web` (TanStack Start/React). Se implementan la ficha CrossPilot, endpoints comerciales y persistencia Supabase. El proveedor de modelo sigue opcional y sin credenciales configuradas. Se incorpora la base de autenticación Supabase en Node.js. Ver `proposal.md` para motivación y alcance. La referencia visual es `visualizaciones/panel-crm-mypes-v1.png`: una ficha con perfil, conversación y propuestas de producto; es un concepto gráfico, no código ejecutable.
 
 ## Goals / Non-Goals
 
@@ -47,3 +47,7 @@ Añadir módulos nuevos sin alterar los lanzadores ni el submódulo. Un comando 
 - `base-web/docs/DATOS-Y-ARQUITECTURA.md`: contratos, esquema relacional, generación y políticas.
 - `base-web/docs/VERIFICACION.md`: pruebas y límites; no se atribuye una ejecución real a los tests de modelo.
 - La PPT se refleja en cinco roles de producto: Orquestador, Cross-sell (tres especialistas), Riesgo, Visita y Postvisita. El coordinador también revisa interés del cliente.
+
+## CrossPilot · actualización solicitada
+
+El usuario sustituye la base visual por `Prototipo interactivo Crosspilot.zip`, un export Claude Design con plantilla `sc-if`/`sc-for` y lógica sintética predefinida. Se extrae a `referencias/crosspilot-design` y se conserva una copia fuente en el frontend. Un conversor de desarrollo genera JSX nativo: no se evalúa texto ni se depende del `support.js` ausente. El nuevo catálogo y escenarios del prototipo son la referencia de la ruta principal. La lógica y tablas de la fase anterior se conservan por compatibilidad; el estado de CrossPilot dispone de persistencia propia, aislada por asesor, en el mismo proyecto Supabase. La UI identifica simulación y pide un resultado de visita explícito antes de actualizar productos sintéticos. El cambio de marca no implica renombrar repositorios, tablas históricas ni claves de configuración privadas.

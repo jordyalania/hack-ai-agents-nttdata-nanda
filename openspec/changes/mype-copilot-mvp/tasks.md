@@ -58,3 +58,11 @@
 
 - Revisar propuesta, requisitos y diseño antes de aplicar el cambio.
 - Archivar solo después de completar implementación y verificación; conservar tareas pendientes visibles hasta entonces.
+
+## 7. CrossPilot y prototipo aportado por el usuario
+
+- [x] 7.1 Extraer el ZIP de forma segura y adaptar su plantilla Claude Design a React sin depender de support.js; verificar agenda, perfil y negociación.
+- [x] 7.2 Cambiar la marca visible y documentación a CrossPilot, conservando identificadores históricos necesarios para compatibilidad y sin renombrar repositorios externos.
+- [x] 7.3 Integrar persistencia del nuevo estado con Supabase Auth, RLS y revisión optimista; verificar guardado, aislamiento y recuperación local.
+- [x] 7.4 Verificar aprobación, edición de montos, ficha, rechazo y postvisita con resultado explícito; comprobar errores, reinicio y adaptación móvil.
+- [ ] 7.5 Actualizar documentación, ejecutar checks y subir ambos repositorios sin reescribir el historial de Lovable.

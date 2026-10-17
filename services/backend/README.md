@@ -1,4 +1,6 @@
-# Backend Mype360 y Supabase
+> Backend de compatibilidad de la primera fase. La nueva web CrossPilot usa el flujo del prototipo y `crosspilot_workspaces` directamente con Supabase Auth; no invoca este motor ni su adaptador de modelo.
+
+# Backend CrossPilot y Supabase
 
 Base de autenticación sobre Node.js 22+, `@supabase/server` 1.9.2 y `@supabase/supabase-js` 2.118.0. Supabase se usará para Postgres y Auth; esta entrega no crea todavía las tablas comerciales.
 

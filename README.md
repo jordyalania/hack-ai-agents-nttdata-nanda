@@ -63,9 +63,9 @@ El estado local de los agentes, las claves y los archivos de configuración priv
 
 Para descargarlo junto con este proyecto: `git submodule update --init --recursive`.
 
-## Web Mype360 y Supabase
+## Web CrossPilot y Supabase
 
-La aplicación está en el submódulo [`base-web`](https://github.com/jordyalania/mype-connect). Incluye cartera sintética, perfil versionado, conversación, especialistas, revisión de riesgo y ficha de visita. La migración del CRM ya está aplicada al Supabase de este proyecto, con RLS por asesor y guardado transaccional.
+La aplicación está en el submódulo [`base-web`](https://github.com/jordyalania/mype-connect). Su ruta principal sigue el ZIP CrossPilot: agenda, perfil lateral, negociación entre agentes, aprobación, ficha y postvisita. El estado se guarda en `crosspilot_workspaces` de Supabase, con RLS por asesor y revisión optimista. Las tablas y el motor de la primera fase se conservan por compatibilidad.
 
 ```sh
 git submodule update --init base-web
@@ -79,3 +79,7 @@ Consulta `base-web/README.md`, `base-web/docs/DATOS-Y-ARQUITECTURA.md` y `base-w
 El repositorio `mype-connect` mantiene su privacidad original. Sus propios GitHub Actions ejecutan tipos, lint del MVP, tests y build. El CI del repositorio principal valida OpenSpec sin pedir acceso al repositorio privado. Las pruebas del backend se ejecutan localmente con `npm run backend:test`, después de inicializar `base-web` con una cuenta autorizada; no se configura un token compartido entre repositorios.
 
 Consulta el [resumen general del proyecto y la base de datos](RESUMEN-PROYECTO-Y-BASE-DE-DATOS.md) para ver dónde está Supabase, qué tablas existen, qué datos están cargados y cómo funciona el MVP.
+
+## CrossPilot · prototipo actual
+
+La web principal se actualizó a partir de `Prototipo interactivo Crosspilot.zip`. La fuente extraída está en `referencias/crosspilot-design/` y su adaptación React reproducible en `base-web/`. Ver [guía actual](base-web/docs/CROSSPILOT-PROTOTIPO.md). El estado activo ahora se guarda en `crosspilot_workspaces` dentro del mismo Supabase; las tablas `mype_*` permanecen como compatibilidad de la fase anterior. El producto se llama CrossPilot; los nombres de repositorios e identificadores históricos se mantienen.
