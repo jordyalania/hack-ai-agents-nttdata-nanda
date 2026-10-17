@@ -1,0 +1,3 @@
+[submodule "nandatown"]
+	path = nandatown
+	url = https://github.com/projnanda/nandatown.git

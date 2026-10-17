@@ -1,0 +1,20 @@
+# Estado privado e identidades de agentes
+.nandatown-state/
+
+# Credenciales y configuración local
+.env
+.env.*
+!.env.example
+.aws/
+*.pem
+*.key
+
+# Dependencias y archivos generados
+.venv/
+venv/
+node_modules/
+.next/
+__pycache__/
+*.py[cod]
+.DS_Store
+*.log
