@@ -4,7 +4,7 @@
   "private": true,
   "description": "Workspace de especificaciones y prototipo del copiloto comercial para mypes",
   "engines": {
-    "node": ">=22"
+    "node": ">=22.18"
   },
   "scripts": {
     "spec": "OPENSPEC_TELEMETRY=0 OPENSPEC_NO_UPDATE_CHECK=1 openspec",
@@ -12,7 +12,10 @@
     "spec:status": "OPENSPEC_TELEMETRY=0 OPENSPEC_NO_UPDATE_CHECK=1 openspec list",
     "backend:dev": "node --env-file=.env services/backend/server.mjs",
     "backend:test": "node --test services/backend/test/*.test.mjs",
-    "supabase:check": "node --env-file=.env scripts/comprobar-supabase.mjs"
+    "supabase:check": "node --env-file=.env scripts/comprobar-supabase.mjs",
+    "web:dev": "npm --prefix base-web run dev --",
+    "web:test": "npm --prefix base-web test",
+    "web:check": "npm --prefix base-web run typecheck && npm --prefix base-web test && npm --prefix base-web run build"
   },
   "devDependencies": {
     "@fission-ai/openspec": "1.14.3"

@@ -13,8 +13,14 @@ const server = createServer(async (incoming, outgoing) => {
         if (value !== undefined) headers.append(name, value);
       }
     }
+    const chunks = []; let size = 0;
+    for await (const chunk of incoming) {
+      size += chunk.length;
+      if (size > 32768) { outgoing.writeHead(413); outgoing.end('Body too large'); return; }
+      chunks.push(chunk);
+    }
     const request = new Request(new URL(incoming.url, `http://127.0.0.1:${port}`), {
-      method: incoming.method, headers,
+      method: incoming.method, headers, ...(['GET','HEAD'].includes(incoming.method) ? {} : { body: Buffer.concat(chunks) }),
     });
     const response = await handle(request);
     outgoing.writeHead(response.status, Object.fromEntries(response.headers));

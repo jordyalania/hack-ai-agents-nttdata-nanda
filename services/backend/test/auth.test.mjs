@@ -51,3 +51,24 @@ test('configuración rechaza placeholders y claves JWKS de otro proyecto', () =>
   assert.throws(() => readConfig({ ...env, SUPABASE_PUBLISHABLE_KEY: 'sb_publishable_REEMPLAZAR' }));
   assert.throws(() => readConfig({ ...env, SUPABASE_JWKS_URL: 'https://other.example/jwks' }));
 });
+
+test('consulta y corrige perfil mediante JWT y RPC de usuario sin cliente administrativo',async()=>{
+  const { createWorkspace } = await import('../../../base-web/src/domain/copilot.ts');
+  const workspace = createWorkspace(); const jwt=token(); const originalFetch=globalThis.fetch; let saved;
+  globalThis.fetch=async (input,init)=>{
+    const address=String(input); const headers=new Headers(init?.headers);
+    assert.equal(headers.get('authorization'),`Bearer ${jwt}`);
+    if(address.includes('/rest/v1/mype_workspaces'))return Response.json({body:workspace,revision:1});
+    if(address.includes('/rest/v1/rpc/mype_save_workspace')) {saved=JSON.parse(init.body);return Response.json(2);}
+    throw new Error('Unexpected external call');
+  };
+  try {
+    const base='http://localhost/api/businesses/business-1/profile';
+    const get=await handle(new Request(base,{headers:{Authorization:`Bearer ${jwt}`}}));assert.equal(get.status,200);
+    assert.equal((await get.json()).business.name,'Bodega Doña Rosa');
+    const patch=await handle(new Request(base,{method:'PATCH',headers:{Authorization:`Bearer ${jwt}`,'Content-Type':'application/json'},body:JSON.stringify({expectedVersion:1,patch:{need:'cobros'},sourceMessageId:'initial-business-1'})}));
+    assert.equal(patch.status,200);assert.equal((await patch.json()).business.version,2);
+    assert.equal(saved.expected_revision,1);assert.equal(saved.document.runs[0].selected,'cobros');
+    const stale=await handle(new Request(base,{method:'PATCH',headers:{Authorization:`Bearer ${jwt}`},body:JSON.stringify({expectedVersion:0,patch:{need:'cobros'}})}));assert.equal(stale.status,409);
+  } finally {globalThis.fetch=originalFetch;}
+});

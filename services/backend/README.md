@@ -60,3 +60,27 @@ Se instalaron en `.agents/skills/` las skills oficiales `supabase-server`, `supa
 Definir las tablas comerciales y las políticas por asesor/negocio, generar la migración y cargar datos sintéticos. No se han ejecutado escrituras ni migraciones remotas en esta entrega.
 
 Referencias: [Supabase Server](https://supabase.com/docs/reference/server), [variables de entorno](https://github.com/supabase/server/blob/main/docs/environment-variables.md), [MCP de Codex](https://developers.openai.com/codex/mcp/).
+
+## Perfil comercial y adaptador opcional
+
+La implementación del CRM vive en `base-web/` y debe tener sus dependencias instaladas (`npm --prefix base-web ci`). El backend comparte su módulo de dominio TypeScript mediante el soporte nativo de Node.js **22.18+**; no duplica las reglas del frontend.
+
+Además de `/api/session`, están disponibles las siguientes rutas, siempre con `Authorization: Bearer <JWT de un usuario de Supabase Auth>`:
+
+- `GET /api/businesses/:id/profile`: perfil vigente, evidencia y revisión de guardado de la cartera del usuario.
+- `PATCH /api/businesses/:id/profile`: JSON `{ "expectedVersion": 1, "patch": { "need": "cobros" }, "sourceMessageId": "initial-business-1" }`. Corrige, conserva evento, incrementa versión y analiza. Devuelve 409 si la versión cambió; datos inválidos devuelven 400. El guardado usa la RPC transaccional bajo el JWT del usuario.
+- `GET /api/businesses/:id/analysis`: ejecución por reglas y explicación opcional con modelo; no utiliza el resultado esperado de los tests ni cambia elegibilidad por texto generado.
+
+Primero debe existir la cartera remota: en la web, entrar a Supabase, cargar y guardar. Si no existe devuelve 404; la publishable key por sí sola no autentica al usuario. Las pruebas de lectura/corrección con JWT usan un transporte de datos controlado; las pruebas SQL aparte verifican RLS y persistencia en el servidor real.
+
+Modelo por defecto: `MODEL_PROVIDER=rules`. Para el adaptador Claude, definir solo en el `.env` privado del backend:
+
+```dotenv
+MODEL_PROVIDER=anthropic
+MODEL_NAME=identificador-de-modelo-habilitado-en-tu-cuenta
+ANTHROPIC_API_KEY=tu-clave-privada
+```
+
+No existe un modelo fijado por defecto que pueda quedar obsoleto. El adaptador usa [Messages API de Anthropic](https://platform.claude.com/docs/en/api/messages/create), límite de 1200 tokens y timeout de 15 segundos. Envía propuestas ya validadas, sin nombre personal ni conversación completa. Una herramienta con contrato acota producto, explicación, preguntas y referencias; se rechazan campos inesperados y referencias inventadas. El servidor conserva la decisión financiera por reglas y devuelve el proveedor/modelo e identificadores de respuesta para auditar. Un error produce 502 con el análisis por reglas y `model.mode=error`; no inventa una respuesta exitosa. Sin configuración devuelve `simulado`.
+
+Los tests del proveedor son fixtures, no llamadas reales. La web inicial no invoca automáticamente este servicio; para conectarlo al frontend se necesita desplegar el backend y definir su transporte autenticado. El CRM funcional no depende de ese servicio opcional.

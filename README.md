@@ -62,3 +62,16 @@ El estado local de los agentes, las claves y los archivos de configuración priv
 [base-web/](base-web/README.md) contiene el frontend de [mype-connect](https://github.com/jordyalania/mype-connect), incorporado como submódulo. Sus cambios se guardan en ese repositorio y se sincronizan con Lovable.
 
 Para descargarlo junto con este proyecto: `git submodule update --init --recursive`.
+
+## Web Mype360 y Supabase
+
+La aplicación está en el submódulo [`base-web`](https://github.com/jordyalania/mype-connect). Incluye cartera sintética, perfil versionado, conversación, especialistas, revisión de riesgo y ficha de visita. La migración del CRM ya está aplicada al Supabase de este proyecto, con RLS por asesor y guardado transaccional.
+
+```sh
+git submodule update --init base-web
+npm ci
+npm --prefix base-web ci
+npm run web:dev -- --host 127.0.0.1 --port 5173
+```
+
+Consulta `base-web/README.md`, `base-web/docs/DATOS-Y-ARQUITECTURA.md` y `base-web/docs/VERIFICACION.md` para el guion, el esquema de once tablas y las pruebas. El backend opcional (`npm run backend:dev`) ofrece sesión, consulta/corrección de perfil y adaptador narrativo de modelo. No hay proveedor LLM configurado: la web identifica sus reglas simuladas y no exige una clave de IA para la demo.
