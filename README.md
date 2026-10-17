@@ -7,7 +7,7 @@ Espacio de trabajo para explorar los retos y desarrollar el proyecto de la hacka
 - [Base de la hackatón](BASE-HACKATON.md): diez casos de banca, minería y manufactura, datasets sugeridos y cinco criterios de evaluación.
 - [Entorno NandaTown](LEEME-NANDATOWN.md): preparación local, alcance y comprobaciones realizadas en el equipo original.
 
-Se explora inicialmente banca y el caso B1 de investigación de alertas AML. El alcance definitivo del prototipo sigue pendiente de elección.
+Se explora banca en Perú, usando BCP como referencia. La propuesta actual es un agente de prospección y venta cruzada para negocios; el análisis previo de AML y sus datasets se conserva como exploración inicial.
 
 ## Clonar el proyecto
 
@@ -40,3 +40,7 @@ El estado local de los agentes, las claves y los archivos de configuración priv
 ## Datos bancarios
 
 [Datasets AML y esquema](data/banca/README.md): IBM HI/LI Small y SAML-D, con descarga reproducible, metadatos y perfiles. Los datos originales se guardan solo en local.
+
+## Propuesta comercial en exploración
+
+[Análisis de oportunidad BCP](ANALISIS-OPORTUNIDAD-COMERCIAL-BCP.md): evidencia pública, nicho propuesto, productos candidatos y datos necesarios para un agente de venta cruzada.
