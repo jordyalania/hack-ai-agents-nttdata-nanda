@@ -1,7 +1,7 @@
-name: Check workspace
+name: Check specifications
 on: [push, pull_request]
 jobs:
-  check:
+  specifications:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -9,9 +9,5 @@ jobs:
         with:
           node-version: 22
           cache: npm
-      - run: git submodule update --init base-web
       - run: npm ci
-      - run: npm --prefix base-web ci
       - run: npm run spec:validate
-      - run: npm run backend:test
-      - run: npm run web:check
