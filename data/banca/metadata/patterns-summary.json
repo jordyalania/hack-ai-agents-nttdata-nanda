@@ -1,0 +1,22 @@
+{
+  "LI-Small_Patterns.txt": {
+    "FAN-IN": 12,
+    "GATHER-SCATTER": 12,
+    "RANDOM": 15,
+    "SCATTER-GATHER": 13,
+    "FAN-OUT": 19,
+    "STACK": 18,
+    "BIPARTITE": 16,
+    "CYCLE": 12
+  },
+  "HI-Small_Patterns.txt": {
+    "FAN-OUT": 48,
+    "CYCLE": 54,
+    "GATHER-SCATTER": 51,
+    "STACK": 43,
+    "RANDOM": 41,
+    "BIPARTITE": 49,
+    "FAN-IN": 40,
+    "SCATTER-GATHER": 44
+  }
+}

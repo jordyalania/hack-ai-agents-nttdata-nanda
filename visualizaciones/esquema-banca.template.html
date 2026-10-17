@@ -1,0 +1,108 @@
+<div id="aml-schema">
+  <h2>Datos para investigar una alerta AML</h2>
+  <label class="form-label">Archivo local
+    <select class="form-select" id="aml-dataset"></select>
+  </label>
+  <p id="aml-stats" class="tabular-nums" aria-live="polite"></p>
+  <div id="aml-flow" class="aml-flow" role="img" aria-label="Relación entre cuenta emisora, transacción y cuenta receptora"></div>
+  <h3>Columnas del archivo</h3>
+  <div class="table-responsive">
+    <table class="table table-sm"><thead><tr><th>Campo</th><th>Tipo lógico</th><th>Ejemplo real del archivo</th></tr></thead><tbody id="aml-columns"></tbody></table>
+  </div>
+  <label class="form-label">Detalle de un campo
+    <select class="form-select" id="aml-field"></select>
+  </label>
+  <div id="aml-detail" class="card" aria-live="polite"></div>
+  <h3>Una fila del archivo</h3>
+  <label class="form-label">Ejemplo
+    <select class="form-select" id="aml-example"></select>
+  </label>
+  <div class="table-responsive"><table class="table table-sm"><thead><tr><th>Campo</th><th>Valor</th></tr></thead><tbody id="aml-record"></tbody></table></div>
+  <p class="text-small text-muted" id="aml-provenance"></p>
+</div>
+<style>
+#aml-schema .aml-flow {display:flex;flex-wrap:wrap;align-items:center;gap:12px;margin:20px 0}
+#aml-schema .aml-entity {flex:1;min-width:140px;padding:12px 0;border-top:2px solid var(--border);overflow-wrap:anywhere}
+#aml-schema .aml-entity strong {font-weight:500}
+#aml-schema td {overflow-wrap:anywhere}
+#aml-schema code {overflow-wrap:anywhere;white-space:normal}
+#aml-schema .aml-detail-line {margin:8px 0}
+</style>
+<script>
+(()=>{
+const root=document.getElementById('aml-schema');
+const profiles=__PROFILES_JSON__;
+const ds=root.querySelector('#aml-dataset'),field=root.querySelector('#aml-field'),example=root.querySelector('#aml-example');
+const descriptions={
+ 'Timestamp':'Momento de la transacción. Permite ordenar movimientos y definir ventanas temporales.',
+ 'From Bank':'Identificador del banco emisor; se combina con la cuenta emisora.',
+ 'To Bank':'Identificador del banco receptor; se combina con la cuenta receptora.',
+ 'Account':'Cuenta emisora. Primer encabezado Account en el CSV de IBM.',
+ 'Account.1':'Cuenta receptora. Segundo encabezado Account en el CSV de IBM.',
+ 'Amount Received':'Importe recibido; se interpreta junto con Receiving Currency.',
+ 'Amount Paid':'Importe pagado; se interpreta junto con Payment Currency.',
+ 'Receiving Currency':'Moneda del importe recibido.',
+ 'Payment Currency':'Moneda del importe pagado.',
+ 'Payment Format':'Medio o formato de pago registrado por el generador.',
+ 'Is Laundering':'Etiqueta sintética de referencia: 1 = lavado, 0 = no lavado. Reservar para evaluación.',
+ 'Bank Name':'Nombre sintético del banco asociado a la cuenta.',
+ 'Bank ID':'Clave del banco en la tabla de cuentas. Validar los ceros iniciales al unirla con transacciones.',
+ 'Account Number':'Número de cuenta sintético; conservar como texto.',
+ 'Entity ID':'Identificador de la entidad sintética propietaria de la cuenta.',
+ 'Entity Name':'Nombre de la entidad sintética propietaria.',
+ 'Time':'Hora de la transacción; se combina con Date.',
+ 'Date':'Fecha de la transacción; se combina con Time.',
+ 'Sender_account':'Cuenta emisora; nodo de origen al construir el grafo.',
+ 'Receiver_account':'Cuenta receptora; nodo de destino al construir el grafo.',
+ 'Amount':'Importe de la transacción. Interpretar con las columnas de moneda.',
+ 'Payment_currency':'Moneda de pago.',
+ 'Received_currency':'Moneda recibida.',
+ 'Sender_bank_location':'Localización bancaria del emisor; no es su domicilio personal.',
+ 'Receiver_bank_location':'Localización bancaria del receptor; no es su domicilio personal.',
+ 'Payment_type':'Medio de pago de la transacción.',
+ 'Is_laundering':'Etiqueta sintética de referencia: 1 = sospechosa, 0 = normal. Reservar para evaluación.',
+ 'Laundering_type':'Tipología asignada por el generador, incluidas categorías normales. No usar como entrada predictiva: contiene información del resultado.'
+};
+const fmt=n=>Number(n).toLocaleString('es-PE');
+const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+let current=profiles[0];
+const saved=()=>window.openai?.widgetState?.modelContent||{};
+function save(){window.openai?.setWidgetState?.({modelContent:{dataset:ds.value,field:field.value,example:example.value}})?.catch(()=>{});}
+function drawField(){
+ const c=current.columns.find(c=>c.name===field.value)||current.columns[0];
+ const lines=[descriptions[c.name]||'Campo del archivo original.',`Vacíos: ${fmt(c.nulls)} de ${fmt(current.rows)} filas.`];
+ if(c.range) lines.push(`Rango observado: ${c.range[0]} → ${c.range[1]}`);
+ if(c.categories){const entries=Object.entries(c.categories).sort((a,b)=>b[1]-a[1]);lines.push(`${entries.length} valores distintos en el archivo completo.`);lines.push(entries.slice(0,12).map(([v,n])=>`${v}: ${fmt(n)}`).join(' · '));if(entries.length>12)lines.push('Se muestran los 12 valores más frecuentes.');}
+ root.querySelector('#aml-detail').innerHTML=lines.map(l=>`<div class="aml-detail-line">${esc(l)}</div>`).join('');
+}
+function drawRecord(){
+ const [group,index]=example.value.split(':');
+ const row=(group==='s'?current.suspicious_examples:current.examples)[Number(index)]||{};
+ root.querySelector('#aml-record').innerHTML=Object.entries(row).map(([k,v])=>`<tr><td><code>${esc(k)}</code></td><td>${esc(v)}</td></tr>`).join('');
+}
+function draw(preferredField,preferredExample){
+ current=profiles.find(p=>p.id===ds.value)||profiles[0];
+ const positives=Number(current.label_counts?.['1']||0);
+ root.querySelector('#aml-stats').textContent=`${fmt(current.rows)} filas · ${current.columns.length} columnas · ${(current.bytes/1e6).toFixed(1)} MB${current.label?' · '+fmt(positives)+' con etiqueta 1 ('+(positives/current.rows*100).toFixed(4)+'%)':''}`;
+ const isAccounts=current.id.includes('accounts');
+ const saml=current.id==='SAML-D';
+ root.querySelector('#aml-flow').innerHTML=(isAccounts?[
+ ['Banco','Bank ID · Bank Name'],['Cuenta','Account Number'],['Entidad propietaria','Entity ID · Entity Name']
+ ]:[['Cuenta emisora',saml?'Sender_account':'From Bank + Account'],['Transacción',saml?'Date · Time · Amount · monedas':'Timestamp · importes · monedas'],['Cuenta receptora',saml?'Receiver_account':'To Bank + Account.1']]).map(([t,s],i)=>`${i?'<span aria-hidden="true">→</span>':''}<div class="aml-entity"><strong>${esc(t)}</strong><div class="text-small">${esc(s)}</div></div>`).join('');
+ root.querySelector('#aml-columns').innerHTML=current.columns.map(c=>`<tr><td><code>${esc(c.name)}</code></td><td>${esc(c.type)}</td><td>${esc(c.examples[0])}</td></tr>`).join('');
+ field.innerHTML=current.columns.map(c=>`<option value="${esc(c.name)}">${esc(c.name)}</option>`).join('');
+ if(current.columns.some(c=>c.name===preferredField))field.value=preferredField;
+ example.innerHTML=current.examples.map((r,i)=>`<option value="n:${i}">Fila inicial ${i+1}</option>`).concat(current.suspicious_examples.map((r,i)=>`<option value="s:${i}">Fila con etiqueta 1 · ejemplo ${i+1}</option>`)).join('');
+ if([...example.options].some(o=>o.value===preferredExample))example.value=preferredExample;
+ root.querySelector('#aml-provenance').textContent=`${current.file} · Perfil calculado sobre todas sus filas. Ejemplos puntuales, sin representatividad estadística. ${saml?'SAML-D v2 · CC BY-NC-SA 4.0':'IBM v8 · CDLA-Sharing 1.0'}`;
+ drawField();drawRecord();
+}
+ds.innerHTML=profiles.map(p=>`<option value="${esc(p.id)}">${esc(p.id)}</option>`).join('');
+function restore(state){if(profiles.some(p=>p.id===state.dataset))ds.value=state.dataset;draw(state.field,state.example);}
+restore(saved());
+ds.addEventListener('change',()=>{draw();save();});
+field.addEventListener('change',()=>{drawField();save();});
+example.addEventListener('change',()=>{drawRecord();save();});
+window.addEventListener('openai:set_globals',event=>{const state=event.detail?.globals?.widgetState?.modelContent;if(state)restore(state);});
+})();
+</script>

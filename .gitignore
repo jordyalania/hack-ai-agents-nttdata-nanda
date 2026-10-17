@@ -18,3 +18,7 @@ __pycache__/
 *.py[cod]
 .DS_Store
 *.log
+
+# Datasets voluminosos: descarga local reproducible
+data/banca/raw/
+data/banca/samples/

@@ -7,7 +7,7 @@ Espacio de trabajo para explorar los retos y desarrollar el proyecto de la hacka
 - [Base de la hackatón](BASE-HACKATON.md): diez casos de banca, minería y manufactura, datasets sugeridos y cinco criterios de evaluación.
 - [Entorno NandaTown](LEEME-NANDATOWN.md): preparación local, alcance y comprobaciones realizadas en el equipo original.
 
-El caso de uso y el alcance del prototipo están pendientes de elección.
+Se explora inicialmente banca y el caso B1 de investigación de alertas AML. El alcance definitivo del prototipo sigue pendiente de elección.
 
 ## Clonar el proyecto
 
@@ -36,3 +36,7 @@ Una vez instaladas las dependencias y compilada la web:
 Ejecuta cada comando en una terminal distinta. El laboratorio usa el puerto 8901 y la web el 3000. Los lanzadores esperan el entorno Python en `nandatown/.venv` y las dependencias de la web en `nandatown/apps/nest-dashboard/node_modules`.
 
 El estado local de los agentes, las claves y los archivos de configuración privados se excluyen mediante `.gitignore`.
+
+## Datos bancarios
+
+[Datasets AML y esquema](data/banca/README.md): IBM HI/LI Small y SAML-D, con descarga reproducible, metadatos y perfiles. Los datos originales se guardan solo en local.
