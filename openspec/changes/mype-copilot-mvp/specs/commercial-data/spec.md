@@ -41,3 +41,14 @@ El sistema SHALL mantener los resultados esperados de cada escenario fuera del c
 #### Scenario: Ejecución de un caso de referencia
 - **WHEN** un agente analiza un negocio con una recomendación esperada reservada para evaluación
 - **THEN** recibe los datos comerciales permitidos pero no la recomendación esperada ni etiquetas AML como objetivo comercial
+
+### Requirement: Base Supabase y sesión autenticada
+El sistema SHALL usar Supabase como base prevista de Postgres/Auth y exponer una sesión backend solo tras verificar un JWT de usuario, sin devolver claves ni requerir privilegios administrativos para consultar esa sesión.
+
+#### Scenario: Sin token de usuario
+- **WHEN** se solicita la sesión sin JWT o usando únicamente una publishable key
+- **THEN** el backend rechaza el acceso y no devuelve una identidad autenticada
+
+#### Scenario: Token válido
+- **WHEN** un JWT vigente tiene una firma confiable y una identidad de usuario válida
+- **THEN** la sesión devuelve la identidad verificada sin exponer el token ni claves de servicio

@@ -6,6 +6,8 @@ El asesor necesita comprender qué cambió en cada mype y qué solución resulta
 
 ## What Changes
 
+- Adoptar Supabase Postgres/Auth y preparar un backend Node.js autenticado con `@supabase/server`, sin publicar secretos.
+
 - Crear un dataset comercial sintético reproducible con personas, negocios, cuentas, movimientos, contratos, objetivos, preferencias, facturas, catálogo y elegibilidad simulada.
 - Construir un perfil con fuentes, vigencia y cobertura, actualizable después de una confirmación o un nuevo evento.
 - Incorporar especialistas de cobros, capital de trabajo y factoring; contrastar sus propuestas con un agente que representa al cliente y un coordinador.
@@ -29,4 +31,4 @@ Ninguna. No existen especificaciones de producto previas en OpenSpec.
 
 ## Impact
 
-Se proponen componentes nuevos fuera de `nandatown/`: datos sintéticos, servicio de perfilado y recomendación, e interfaz del asesor. Python y una interfaz web con TypeScript son candidatos del diseño; el runtime de agentes se decide explícitamente durante implementación. OpenSpec ya está instalado como herramienta de desarrollo y no ejecuta los agentes del producto. Los datasets AML y el submódulo se conservan como recursos independientes. No hay cambios incompatibles para los lanzadores existentes.
+Se proponen componentes nuevos fuera de `nandatown/`: datos sintéticos, servicio de perfilado y recomendación, e interfaz del asesor. Node.js con Supabase será la base HTTP/autenticación y persistencia; una interfaz web con TypeScript es candidata del diseño; el runtime de agentes se decide explícitamente durante implementación. OpenSpec ya está instalado como herramienta de desarrollo y no ejecuta los agentes del producto. Los datasets AML y el submódulo se conservan como recursos independientes. No hay cambios incompatibles para los lanzadores existentes.

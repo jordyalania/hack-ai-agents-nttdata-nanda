@@ -1,5 +1,13 @@
 # Tasks
 
+## 0. Base Supabase solicitada
+
+- [x] 0.1 Instalar @supabase/server y supabase-js fijados y configurar Node.js 22+; verificar instalación e importaciones.
+- [x] 0.2 Preparar entorno privado y plantilla pública sin secretos; verificar exclusión Git y validación de configuración.
+- [x] 0.3 Crear backend local con sesión protegida por JWT; verificar tokens válidos, inválidos y ausentes sin acceso administrativo.
+- [x] 0.4 Añadir comprobación de conectividad de solo lectura y guía; verificar respuestas de Auth/JWKS o registrar el error real sin afirmar conexión.
+
+
 ## 1. Datos comerciales
 
 - [ ] 1.1 Definir contratos para personas, negocios, cuentas, movimientos y contratos; verificar los casos de dos negocios por propietario y referencias inválidas de commercial-data.

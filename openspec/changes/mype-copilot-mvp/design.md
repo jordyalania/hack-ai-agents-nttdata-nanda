@@ -2,7 +2,7 @@
 
 ## Context
 
-El repositorio contiene brief, análisis comercial, scripts de datos AML y un submódulo NandaTown. No hay todavía aplicación Mype360, API comercial ni proveedor de modelo conectado. Ver `proposal.md` para motivación y alcance. La referencia visual es `visualizaciones/panel-crm-mypes-v1.png`: una ficha con perfil, conversación y propuestas de producto; es un concepto gráfico, no código ejecutable.
+El repositorio contiene brief, análisis comercial, scripts de datos AML y un submódulo NandaTown. No hay todavía aplicación Mype360, endpoints comerciales ni proveedor de modelo conectado. Se incorpora la base de autenticación Supabase en Node.js. Ver `proposal.md` para motivación y alcance. La referencia visual es `visualizaciones/panel-crm-mypes-v1.png`: una ficha con perfil, conversación y propuestas de producto; es un concepto gráfico, no código ejecutable.
 
 ## Goals / Non-Goals
 
@@ -12,7 +12,7 @@ El repositorio contiene brief, análisis comercial, scripts de datos AML y un su
 
 ## Decisions
 
-1. **Componentes independientes del submódulo.** Se propone `apps/advisor/` con Next.js/TypeScript y `services/copilot/` con Python/FastAPI. SQLite almacena datos de demo y versiones; contratos JSON validan los intercambios. Se evita adaptar la web de NandaTown porque tiene otro propósito y ciclo de actualización.
+1. **Componentes independientes del submódulo.** Se propone `apps/advisor/` con Next.js/TypeScript y se prepara `services/backend/` con Node.js 22+ y `@supabase/server`. Supabase Postgres sustituye SQLite como persistencia prevista; contratos JSON validan los intercambios. La orquestación del copiloto se implementará sobre esta API sin exigir un segundo servicio Python. Se evita adaptar la web de NandaTown porque tiene otro propósito y ciclo de actualización.
 
 2. **Datos relacionales y evidencia.** Separar personas, negocios, titularidad, cuentas, movimientos, contratos, objetivos, preferencias, facturas, catálogo y elegibilidad. Observaciones y confirmaciones se añaden como eventos; snapshots numerados permiten leer perfiles. Los resultados esperados para evaluación viven fuera de las herramientas de agentes. El generador fija semilla, referencia temporal y escenario. Esto facilita corrección y reproducción frente a sobrescribir una única ficha sin historial.
 
@@ -24,7 +24,9 @@ El repositorio contiene brief, análisis comercial, scripts de datos AML y un su
 
 6. **Ficha única y revisión humana.** Cartera y ficha de tres columnas: perfil a la izquierda, conversación al centro y especialistas/coordinador a la derecha. Evidencias y descartes se abren en contexto. Se ofrecen borradores, confirmación y corrección; los controles no envían mensajes externos.
 
-7. **Modo local de demo.** Un único asesor de demostración y datos exclusivamente sintéticos. Los endpoints y la interfaz identifican ese modo. No se presenta como un CRM multiusuario con controles de producción ya implementados.
+7. **Autenticación y datos.** La base incorpora `/health` local y `/api/session` protegido por JWT, con cliente de usuario sujeto a RLS. Las futuras tablas requieren migraciones y políticas por asesor/negocio antes de exponer datos. La publishable key no autentica a un usuario. La clave secreta permanece solo en el entorno servidor y no es necesaria para consultar la sesión. No se crean tablas ni se ejecutan migraciones remotas en esta fase.
+
+8. **Modo local de demo.** Un único asesor de demostración y datos exclusivamente sintéticos. Los endpoints y la interfaz identifican ese modo. No se presenta como un CRM multiusuario con controles de producción ya implementados.
 
 ## Risks / Trade-offs
 

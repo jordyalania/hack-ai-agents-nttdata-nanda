@@ -1,6 +1,6 @@
 # OpenSpec: integración y siguientes pasos
 
-OpenSpec 1.14.3 está instalado localmente como dependencia de desarrollo, fijado en `package.json` y `package-lock.json`. Node requerido: 20.19.0 o posterior. La configuración del proyecto está en `openspec/config.yaml`; las seis skills para Codex están en `.agents/skills/`.
+OpenSpec 1.14.3 está instalado localmente como dependencia de desarrollo, fijado en `package.json` y `package-lock.json`. El repositorio requiere ahora Node.js 22+ por Supabase Server; OpenSpec por sí solo admite 20.19.0+. La configuración del proyecto está en `openspec/config.yaml`; las seis skills para Codex están en `.agents/skills/`.
 
 OpenSpec organiza el desarrollo por especificaciones. No es el runtime de los especialistas comerciales ni una conexión a BCP.
 
@@ -23,7 +23,7 @@ Cambio: `openspec/changes/mype-copilot-mvp/`.
 - `proposal.md`: alcance y resultados de la demo.
 - `specs/`: datos comerciales, perfiles dinámicos, propuestas de producto y ficha del asesor.
 - `design.md`: arquitectura propuesta y decisiones.
-- `tasks.md`: trabajo de implementación y comprobación, todavía pendiente.
+- `tasks.md`: trabajo de implementación y comprobación. La base Supabase se implementó; el resto del MVP sigue pendiente.
 
 La validación estricta de OpenSpec aprobó. Eso comprueba la estructura del plan; no significa que la aplicación esté implementada ni que sus pruebas hayan pasado.
 

@@ -9,7 +9,7 @@ context: |
   Product specialists propose; a coordinator compares suitability and may request information or recommend no offer. Advisor reviews outputs.
   Financial calculations and eligibility use explicit versioned rules; decision preferences never determine credit access, limits or prices.
   OpenSpec manages development specifications; the product agent runtime is a separate design decision. nandatown/ is an upstream submodule.
-  No banking credentials or production integrations exist. No automatic outreach or real credit approvals in the MVP.
+  Supabase is selected for Postgres and Auth; backend authentication uses @supabase/server on Node.js 22+. No BCP integration exists. No automatic outreach or real credit approvals in the MVP.
 
 rules:
   proposal:

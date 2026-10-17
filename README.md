@@ -52,3 +52,7 @@ El estado local de los agentes, las claves y los archivos de configuración priv
 [Integración y siguientes pasos](OPENSPEC-NEXT-STEPS.md). Instalación local: `npm ci`. Verificación del plan: `npm run spec:validate`. Primer cambio: `mype-copilot-mvp`.
 
 [Concepto visual de la ficha CRM](visualizaciones/panel-crm-mypes-v1.png): conversación, perfil y propuestas de agentes comerciales en una pantalla.
+
+## Backend y Supabase
+
+[Configuración, autenticación y MCP](services/backend/README.md). Node.js 22+. Arranque: `npm run backend:dev`. Pruebas: `npm run backend:test`. Comprobación remota de solo lectura: `npm run supabase:check`.
