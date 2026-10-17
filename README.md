@@ -77,3 +77,5 @@ npm run web:dev -- --host 127.0.0.1 --port 5173
 Consulta `base-web/README.md`, `base-web/docs/DATOS-Y-ARQUITECTURA.md` y `base-web/docs/VERIFICACION.md` para el guion, el esquema de once tablas y las pruebas. El backend opcional (`npm run backend:dev`) ofrece sesión, consulta/corrección de perfil y adaptador narrativo de modelo. No hay proveedor LLM configurado: la web identifica sus reglas simuladas y no exige una clave de IA para la demo.
 
 El repositorio `mype-connect` mantiene su privacidad original. Sus propios GitHub Actions ejecutan tipos, lint del MVP, tests y build. El CI del repositorio principal valida OpenSpec sin pedir acceso al repositorio privado. Las pruebas del backend se ejecutan localmente con `npm run backend:test`, después de inicializar `base-web` con una cuenta autorizada; no se configura un token compartido entre repositorios.
+
+Consulta el [resumen general del proyecto y la base de datos](RESUMEN-PROYECTO-Y-BASE-DE-DATOS.md) para ver dónde está Supabase, qué tablas existen, qué datos están cargados y cómo funciona el MVP.
