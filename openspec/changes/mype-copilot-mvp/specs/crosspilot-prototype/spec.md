@@ -6,6 +6,21 @@ Actualizar la marca a CrossPilot y adoptar el prototipo interactivo aportado por
 
 ## ADDED Requirements
 
+### Requirement: Integración aditiva de cartera sintética
+El sistema SHALL preservar los identificadores, datos fuente y unidades del Excel, exponer una proyección compatible visualmente con la ficha y conservar separadas las políticas y carteras del prototipo.
+
+#### Scenario: Explorar la cartera beta
+- **WHEN** el asesor abre la cartera beta
+- **THEN** consulta clientes, transacciones, contratos, consentimientos y catálogo relacionados, distingue propuestas no activas y no sobrescribe su cartera privada
+
+#### Scenario: Fuente incoherente
+- **WHEN** el importador encuentra una referencia inválida o un saldo no conciliado
+- **THEN** rechaza la carga antes de escribir y comunica el problema
+
+#### Scenario: Métricas distintas
+- **WHEN** se proyecta un cliente del libro
+- **THEN** sus ventas, resultado operativo, cuotas, excedente y saldo de deuda permanecen diferenciados y no se aplican reglas de negociación incompatibles
+
 ### Requirement: Prototipo ejecutable y marca CrossPilot
 El sistema SHALL renderizar la agenda, negociación, aprobación, ficha, postvisita y perfil del ZIP mediante React nativo, con marca CrossPilot y sin depender del runtime Claude Design ausente.
 

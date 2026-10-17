@@ -66,3 +66,10 @@
 - [x] 7.3 Integrar persistencia del nuevo estado con Supabase Auth, RLS y revisión optimista; verificar guardado, aislamiento y recuperación local.
 - [x] 7.4 Verificar aprobación, edición de montos, ficha, rechazo y postvisita con resultado explícito; comprobar errores, reinicio y adaptación móvil.
 - [x] 7.5 Actualizar documentación, ejecutar checks y subir ambos repositorios sin reescribir el historial de Lovable.
+
+## 8. Cartera beta y catálogo del Excel
+
+- [x] 8.1 Comparar el Excel con los contratos actuales y crear importación reproducible, validando referencias, conciliación, métricas y procedencia.
+- [x] 8.2 Añadir y cargar tablas adicionales en Supabase sin modificar carteras privadas; verificar integridad, conteos, lectura y restricciones de escritura.
+- [x] 8.3 Integrar una vista de cartera beta con la firma del prototipo, detalle relacionado y catálogo; distinguir políticas y productos no equivalentes y verificar pruebas y vista móvil.
+- [ ] 8.4 Documentar diferencias, límites y reproducción, ejecutar comprobaciones y publicar código en ambos repositorios.

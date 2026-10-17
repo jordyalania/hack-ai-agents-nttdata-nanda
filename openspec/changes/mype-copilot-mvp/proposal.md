@@ -7,6 +7,7 @@ El asesor necesita comprender qué cambió en cada mype y qué solución resulta
 ## What Changes
 
 - Adoptar Supabase Postgres/Auth y preparar un backend Node.js autenticado con `@supabase/server`, sin publicar secretos.
+- Integrar el Excel sintético de la cartera beta mediante perfiles compatibles con la firma visual de CrossPilot, conservando sus evidencias, catálogo, consentimientos y políticas en una vista de consulta y tablas adicionales, sin sobrescribir las carteras del asesor.
 
 - Crear un dataset comercial sintético reproducible con personas, negocios, cuentas, movimientos, contratos, objetivos, preferencias, facturas, catálogo y elegibilidad simulada.
 - Construir un perfil con fuentes, vigencia y cobertura, actualizable después de una confirmación o un nuevo evento.

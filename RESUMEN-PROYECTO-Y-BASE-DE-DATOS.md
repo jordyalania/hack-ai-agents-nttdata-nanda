@@ -13,6 +13,8 @@ Actualización: 17 de octubre de 2026. El producto se llama **CrossPilot** y la 
 
 **Tabla activa de la nueva web:** `public.crosspilot_workspaces`. Reúne el estado completo del prototipo en un JSON por asesor, con `owner_id`, `state`, `revision` y `updated_at`. No hay una BD por agente.
 
+**Cartera beta del Excel:** ya cargada en el mismo Supabase, con cuatro tablas adicionales: `crosspilot_datasets`, `crosspilot_dataset_clients`, `crosspilot_dataset_products` y `crosspilot_source_records`. Contiene 10 empresas cliente, 311 movimientos, 24 leads, 31 contratos y un catálogo de 24 productos (8 activos en origen y 16 propuestos), con 847 filas fuente conservadas. El libro declara todo sintético. La pestaña **Cartera beta · Supabase** consulta estos datos sin login, con RLS de solo lectura para snapshots sintéticas; las carteras de asesores siguen privadas. No aplica las reglas incompatibles del ZIP ni convierte leads en aprobaciones. Ver [diferencias, firma de datos, relaciones y reproducción](base-web/docs/INTEGRACION-CARTERA-BETA.md).
+
 Las once tablas `mype_*` de la fase anterior permanecen en el mismo proyecto por compatibilidad. No se borraron ni renombraron y la nueva ruta no guarda en ellas. Las migraciones y sus pruebas están en `base-web/supabase/`.
 
 ## Qué guarda CrossPilot
